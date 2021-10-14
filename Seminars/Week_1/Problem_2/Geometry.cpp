@@ -18,4 +18,4 @@ int main()
 		cout << "Square: " << s << " " << p << endl;
 		return 0;
 	}
-}
+} 
