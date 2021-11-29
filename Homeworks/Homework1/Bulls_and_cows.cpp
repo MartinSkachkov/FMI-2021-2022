@@ -1,5 +1,7 @@
 //Задача 4 - Бикове и крави
 	//числото на компютъра
+#define N 15
+int main(){
 	cout << "Rules of the game:\nThe secret number consists of 4 different digits from 1 to 9\n" <<
 		"Guess it for " << N << " attempts! Good Luck\n";
 	srand(time(NULL));//да генерира всеки път случайно число
