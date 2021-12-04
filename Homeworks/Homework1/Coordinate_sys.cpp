@@ -92,5 +92,10 @@ int main()
 		{
 			cout << "red area";
 		}
+		//cyan
+		if ((x > round(-sqrt(8) * 1000.0) / 1000.0 && x < 0) && (y < 0 && y > -4)&&pink == false)
+		{
+			cout << "light blue area";
+		}
 
 	}
