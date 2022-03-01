@@ -13,11 +13,13 @@ struct Room {
 
 int main() {
 	Room dining; //define a room
-
-	cin >> dining.length.feet;
-	cin >> dining.length.inches;
-	cin >> dining.width.feet;
-	cin >> dining.width.inches;
+	
+	//dining = { {13,6.5}, {10,0.0} }; another way of initializing
+	
+	cin >> dining.length.feet; //13
+	cin >> dining.length.inches; //6.5
+	cin >> dining.width.feet; //10
+	cin >> dining.width.inches; //0.0
 
 	float l = dining.length.feet + dining.length.inches / 12;
 	float w = dining.width.feet + dining.width.inches / 12;
