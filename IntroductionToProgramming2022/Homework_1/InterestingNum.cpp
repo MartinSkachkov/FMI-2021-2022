@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 
 int main() {
@@ -19,9 +20,9 @@ int main() {
 
 	int sum = 0; // сумата от всички интересни числа в [a,b]
 	//проверяваме дали числото е интересно
-	for (size_t number = a; number <= b; number++) { //'а' ни е началото на интервала, а 'b' е край
+	for (int number = a; number <= b; number++) { //'а' ни е началото на интервала, а 'b' е край
 		bool isInteresting = true;
-		int currentNum = number; //currNum = 94
+		int currentNum = abs(number); //currNum = 94
 
 		while (currentNum != 0) {
 			//случай за примерен интервал [5,8]
