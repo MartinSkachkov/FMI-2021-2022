@@ -1,4 +1,5 @@
 #include <string.h>
+
 #include <iostream>
 #define MAX_SIZE 1024
 using namespace std;
@@ -52,5 +53,8 @@ int main() {
     cout << "Substring: ";
     initArr(substring, substringSize);
 
-    cout << "The substring is: " << boolalpha << hasSubstring(string, substring);
+    cout << "The substring is: " << boolalpha
+         << hasSubstring(string, substring);
+
+    return 0;
 }
