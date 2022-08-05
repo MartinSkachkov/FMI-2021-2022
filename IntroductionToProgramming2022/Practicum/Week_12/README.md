@@ -109,10 +109,26 @@ Box is not fixed.
 
 Да се напише рекурсивна функция, която представя число от десетична в двоична бройна система.
 
+```cpp
+size_t toBinary(int decimal) {
+    return decimal == 0 ? 0 : decimal % 2 + 10 * toBinary(decimal / 2);
+}
+```
+
 > Задача 2
 
 Въведете числата x от тип double и n от тип int. Да се напише програма, която намира стойността на израза чрез рекурсия:
 sum = ( ...(((x + 2)x + 3)x + 4)x +... + (n-1))x + n;
+
+```cpp
+int sum(double x, int n) {
+    if (n == 2) {
+        return x + 2;
+    } else {
+        return n + x * sum(x, n-1);
+    }
+}
+```
 
 > Задача 3
 
@@ -130,14 +146,54 @@ sum = ( ...(((x + 2)x + 3)x + 4)x +... + (n-1))x + n;
 
 </details>
 
+```cpp
+int sum(int n, int offset, int base) {
+    if (base >= n) {
+        return 0;
+    }
+    return base + sum(n, offset, base + offset);
+}
+```
+
 > Задача 4
 
 Да се напише функция, която пресмята 1 + 1/2 + 1/3 + ... + 1/n.
+
+```cpp
+double calc(size_t n) {
+    if (n == 1) {
+        return 1;
+    }
+    return (1.0 / n) + calc(n - 1);
+}
+```
 
 > Задача 5
 
 Да се напише рекурсивна функция, която намира най-малката цифра в число.
 
+```cpp
+int smallestDigit(int num, int digit) {
+    if (num == 0) {
+        return digit;
+    }
+    if (digit > num % 10) {
+        digit = num % 10;
+    }
+    smallestDigit(num / 10, digit);
+}
+```
+
 > Задача 6
 
 Да се напише рекурсивна функция, която намира сумата на цифрите в дадено число.
+
+```cpp
+int sumOfDigit(int num, int sum) {
+    if (num == 0) {
+        return sum;
+    }
+    sum += num % 10;
+    sumOfDigit(num / 10, sum);
+}
+```
