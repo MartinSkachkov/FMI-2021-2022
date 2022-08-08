@@ -2,6 +2,43 @@
 ### :christmas_tree: Christmas edition :gift:
 
 ## Динамично заделяне на памет
+```cpp
+// C++ program to handle memory failure
+// when very large memory is allocated
+#include <iostream>
+using namespace std;
+
+// Drive Code
+int main()
+{
+	// Allocate huge amount of memory
+	long MEMORY_SIZE = 0x7fffffff;
+
+	// Allocate memory dynamically
+	// using "new" with "nothrow"
+	// version of new
+	char* addr = new (std::nothrow) char[MEMORY_SIZE];
+    //if it has't allocated memory correctly it return a NULL-ptr , otherwise it returns an adress in memory
+
+	// Check if addr is having
+	// proper address or not
+	if (addr) {
+
+		cout << "Memory is allocated"
+			<< " Successfully" << endl;
+	}
+	else {
+
+		// This part will be executed if
+		// large memory is allocated and
+		// failure occurs
+		cout << "Memory allocation"
+			<< " fails" << endl;
+	}
+
+	return 0;
+}
+```
 
 > :cookie: Задача 1 
 

@@ -98,9 +98,45 @@ char** split(char* source, char delimiter, int& size);
 
 Да се дефинира рекурсивна функция, която вмъква елемент **x**, въведен от клавиатурата в **сортиран** масив. **Забележка:** Функцията да заделя памет за по-голям масив, като променя първоначално подадения такъв.
 
+```cpp
+void addElement(int* arr, size_t size, int x) {
+    // if we are at the begining place it first
+    if (size == 0) {
+        arr[0] = x;
+        return;
+    }
+    // room for improvement with the resize func
+    if (size >= capacity) {
+        resize(arr, capacity);
+    }
+    if (arr[size - 1] > x) {
+        arr[size] = arr[size - 1];  // shift them by one position
+        addElement(arr, size - 1, x);
+    } else {
+        arr[size] = x;
+        return;
+    }
+}
+```
+
 > Задача 2
 
 Да се дефинира рекурсивна функция, която сравнява лексикографски два символни низа.
+
+```cpp
+int strcmpRecursion(char* str1, char* str2) {
+    if (*str1 > *str2) {
+        return 1;
+    }
+    if (*str1 < *str2) {
+        return -1;
+    }
+    if (*str1 == 0) {
+        return 0;
+    }
+    return strcmpRecursion(str1 + 1, str2 + 1);
+}
+```
 
 > Задача 3
 
@@ -127,9 +163,83 @@ char** split(char* source, char delimiter, int& size);
     Изход:
     No
     
+```cpp
+bool safePosition(char** maze, size_t currRow, size_t currCol, size_t destRow,
+                  size_t destCol) {
+    // if we are within the bounds of the maze and the current position is '.'
+    // everything is ok
+    if ((currRow >= 0 && currRow <= destRow) &&
+        (currCol >= 0 && currCol <= destCol) &&
+        (maze[currRow][currCol] == '.')) {
+        return true;
+    }
+    return false;
+}
+
+bool findPath(char** maze, bool** path, size_t currRow, size_t currCol,
+              size_t destRow, size_t destCol) {
+    // base case
+    if (currRow == destRow && currCol == destCol) {
+        path[currRow][currCol] = 1;
+        return true;  // found a path to the end
+    }
+
+    // if we are not at the end
+    if (safePosition(maze, currRow, currCol, destRow, destCol) == true) {
+        if (path[currRow][currCol] == 1) {
+            return false;
+        }
+        path[currRow][currCol] = 1;
+
+        if (findPath(maze, path, currRow + 1, currCol, destRow, destCol) ==
+            true) {
+            return true;
+        }
+        if (findPath(maze, path, currRow - 1, currCol, destRow, destCol) ==
+            true) {
+            return true;
+        }
+        if (findPath(maze, path, currRow, currCol + 1, destRow, destCol) ==
+            true) {
+            return true;
+        }
+        if (findPath(maze, path, currRow, currCol - 1, destRow, destCol) ==
+            true) {
+            return true;
+        }
+        path[currRow][currCol] = 0;
+        return false;
+    }
+    return false;
+}
+```
+
 > Задача 4:
 
 Да се напише рекурсивна функция, която намира числото xy, по въведени сбор x+y от цифрите x и y и разликата между числата yx - xy.
 Пример:
 Вход: Сбор x + y = 12; Разлика yx - xy = 36.
 Изход: 48
+
+```cpp
+int concatDigits(int x, int y) {
+    int yCopy = y;
+    do {
+        x *= 10;
+        yCopy /= 10;
+    } while (yCopy);
+
+    return x + y;
+}
+
+int findNum(int sum, int difference, int x, int y) {
+    // base case
+    if (((x + y) == sum) &&
+        ((concatDigits(y, x) - concatDigits(x, y)) == difference)) {
+        return concatDigits(x, y);
+    }
+    y++;
+    x = sum - y;
+    return findNum(sum, difference, x, y);
+}
+```
