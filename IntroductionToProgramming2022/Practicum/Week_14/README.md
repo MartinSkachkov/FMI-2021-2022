@@ -7,6 +7,23 @@
 Да се дефинира функция, която преобразува положително цяло число в съответния му символен низ и връща така построения символен низ.
 **Забележка**: Да се използва динамична памет!
 
+```cpp
+char* stringRepresentation(int number) {
+    // alloc mem
+    size_t strLen = numlen(number);
+    char* str = new char[strLen + 1];
+    str[strLen] = 0;
+
+    while (number != 0) {
+        // int to str -> '8' +'0';
+        str[strLen - 1] = char(number % 10) + '0';  // saving back to start
+        number /= 10;
+        strLen--;
+    }
+    return str;
+}
+```
+
 > Задача 2
 
 Да се реализира функция split със следната сигнатура:
@@ -78,6 +95,26 @@ char** split(char* source, char delimiter, int& size);
 > Задача 4
 
 Дадена е квадратна матрица от естествени числа с размерност n×n,n∈[2;20]. Да се напише функция, която сортира редовете на матрицата в низходящ ред според сумата на цифрите във всеки от елементите.
+
+```cpp
+void BubbleSort(int* rows, const size_t n) {
+    for (size_t i = 0; i < n - 1; i++) {
+        for (size_t j = 0; j < n - 1 - i; j++) {
+            // if the sum of the digits of the curr number is bigger than the
+            // next then swap the real numbers
+            if (sumDigits(rows[j]) > sumDigits(rows[j + 1])) {
+                swap(rows[j], rows[j + 1]);
+            }
+        }
+    }
+}
+
+void sortRows(int** matrix, const size_t n) {
+    for (size_t i = 0; i < n; i++) {
+        BubbleSort(matrix[i], n);
+    }
+}
+```
 
 > Задача 5
 

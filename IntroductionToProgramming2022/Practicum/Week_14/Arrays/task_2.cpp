@@ -5,46 +5,56 @@ using namespace std;
 
 size_t sourceIterator;
 
-char* extractWord(char* source, size_t& wordLen) {
-    char* extractor = new char[EXTRACT_SIZE];
-    size_t sourceIterator = 0, extractorIterator = 0;
-    while (source[sourceIterator] != 0) {
-        if (source[sourceIterator] != ' ') {
-            extractor[extractorIterator++] = source[sourceIterator];
-        }
-        if (source[sourceIterator] == ' ') {
-            sourceIterator++;
-            break;
-        }
-        sourceIterator++;
+void addWord(char**& result, char* source, size_t startIndex, size_t endIndex,
+             size_t& size) {
+    char** newResult = new char*[size + 1];  // plus one because we add a word
+    // copy the old words to the newResult
+    for (size_t i = 0; i < size; i++) {
+        newResult[i] = new char[strlen(result[i]) + 1];
+        strcpy(newResult[i], result[i]);
+        delete[] result[i];  // delete old words
     }
-    wordLen = extractorIterator;
-    extractor[extractorIterator] = 0;
-    return extractor;
+    delete[] result;  // delete whole arr of old words
+
+    // plus 1 because for \0
+    newResult[size] = new char[endIndex - startIndex + 1];
+    size_t ctr = 0;
+    for (size_t i = startIndex; i < endIndex; i++) {
+        newResult[size][ctr++] = source[i];
+    }
+
+    newResult[size][ctr] = 0;  // adding the \0
+    size++;
+    result = newResult;  // make it point to the array with old and new words
 }
 
 char** split(char* source, char delimiter, size_t& size) {
-    // we find the number of words
-    size_t words = 1;
-    for (size_t i = 0; i < size; i++) {
+    size_t left = 0;
+    size_t right = strlen(source) - 1;
+
+    // trim the empty spaces from the fron and end
+    while (source[left] == delimiter) {
+        left++;
+    }
+    while (source[right] == delimiter) {
+        right--;
+    }
+
+    char** result = nullptr;
+    size_t startIndex = left;
+
+    for (size_t i = left; i < right; i++) {
         if (source[i] == delimiter) {
-            words++;
+            addWord(result, source, startIndex, i, size);
+            startIndex = i + 1;
         }
     }
-    size = words;
 
-    // alloc mem for n number of words
-    char** result = new char*[words];
-    size_t wordLen = 0;
-
-    char* extractor;
-
-    for (size_t i = 0; i < words; i++) {
-        extractor = extractWord(source, wordLen);
-        result[i] = new char[wordLen + 1];
-        strcpy_s(result[i], wordLen + 1, extractor);
+    // if we have only one word as input or we have to add the last word because
+    // the for loop won't add it
+    if (size != 0 || (left == 0 && right == strlen(source) - 1)) {
+        addWord(result, source, startIndex, right + 1, size);
     }
-    delete[] extractor;
     return result;
 }
 
@@ -58,14 +68,22 @@ int main() {
     cin.get();
     cin.getline(source, length + 1);
 
-    // passing length by reference cuz we want to change it
-    char** result = split(source, ' ', length);
-    for (size_t i = 0; i < length; i++) {
-        cout << result[i] << "\n";
+    cout << "delimeter: ";
+    char delimeter;
+    cin.get(delimeter);
+
+    // passing splitSize by reference cuz we want to change it
+    size_t splitSize = 0;
+    char** result = split(source, delimeter, splitSize);
+
+    if (result != nullptr) {
+        for (size_t i = 0; i < length; i++) {
+            cout << result[i] << "\n";
+        }
     }
 
-    for (size_t i = 0; i < length; i++) {
-        delete[] result[length];
+    for (size_t i = 0; i < splitSize; i++) {
+        delete[] result[i];
     }
     delete[] result;
     delete[] source;
