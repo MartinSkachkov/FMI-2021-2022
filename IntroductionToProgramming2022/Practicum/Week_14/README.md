@@ -1,5 +1,7 @@
 # Задачи
+
 Допълнително упражнение преди контролно 2.
+
 ## Масиви
 
 > Задача 1 (за загрявка)
@@ -199,7 +201,7 @@ int strcmpRecursion(char* str1, char* str2) {
 
     Изход:
     No
-    
+
 ```cpp
 bool safePosition(char** maze, size_t currRow, size_t currCol, size_t destRow,
                   size_t destCol) {
