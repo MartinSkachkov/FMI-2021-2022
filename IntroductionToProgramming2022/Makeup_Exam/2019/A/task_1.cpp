@@ -19,6 +19,7 @@ void encode(char* s1, char* r1, char* s2, char*& r2) {
 		if (marked[s1[i] - 'a']) {
 			if (letters[s1[i] - 'a'] != r1[i]) {
 				throw "Incorrect function!";
+				r2 = new char(0);
 				return;
 			}
 		}
