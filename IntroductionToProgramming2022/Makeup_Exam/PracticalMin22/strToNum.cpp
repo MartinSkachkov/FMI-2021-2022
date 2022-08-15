@@ -11,6 +11,16 @@ size_t strlen(char* str) {
 	return len;
 }
 
+bool validation(char* str) {
+	size_t len = strlen(str);
+	for (size_t i = 0; i < len; i++) {
+		if (str[i] < '1' || str[i] > '9') {
+			return false;
+		}
+	}
+	return true;
+}
+
 void bubbleSort(int* arr, size_t n) {
 	for (size_t i = 0; i < n - 1; i++) {
 		for (size_t j = 0; j < n - 1 - i; j++) {
@@ -68,8 +78,10 @@ int main() {
 			cout << "could not allocate memory!";
 			return -1;
 		}
+		do {
 		cout << "str: ";
 		cin.getline(str[i], MAX_LEN);
+		} while (!validation(str[i]));
 	}
 
 	int* nums = nullptr;
