@@ -64,8 +64,9 @@ void Matrix::print() const {
     cout << "Matrix size: " << mSize << '\n';
     for (size_t i = 0; i < mSize; i++) {
         for (size_t j = 0; j < mSize; j++) {
-            cout << mMatrix[i][j];
+            cout << mMatrix[i][j] << ' ';
         }
+        cout << '\n';
     }
 }
 
