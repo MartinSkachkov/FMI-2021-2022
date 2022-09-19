@@ -6,7 +6,7 @@ void increment_watched(Movies &collection, const char *name) {
     if (collection.incrementByOne(name)) {
         cout << name << " successfully incremented by one!\n";
     } else {
-        cout << name << "wasn't incremented by one!\n";
+        cout << name << " wasn't incremented by one!\n";
     }
 }
 

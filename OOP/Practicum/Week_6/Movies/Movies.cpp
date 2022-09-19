@@ -93,19 +93,16 @@ bool Movies::incrementByOne(const char *name) {
 }
 
 ostream &operator<<(ostream &out, const Movies &collection) {
-    out << "Movie collection info\n"
-        << "Size: " << collection.mSize << '\n'
-        << "Capacity: " << collection.mCapacity << '\n'
-        << "Films:\n";
-    for (size_t i = 0; i < collection.mSize; i++) {
-        out << "Name: " << collection.mMovies[i].getMovieName() << " Rating: " << collection.mMovies[i].getRating() << " Watched: " << collection.mMovies[i].getWatched();
+    if (collection.mSize == 0) {
+        out << "No movies to be displayed!\n";
+    } else {
+        out << "Movie collection info\n"
+            << "Size: " << collection.mSize << '\n'
+            << "Capacity: " << collection.mCapacity << '\n'
+            << "Films:\n";
+        for (size_t i = 0; i < collection.mSize; i++) {
+            out << "Name: " << collection.mMovies[i].getMovieName() << " Rating: " << collection.mMovies[i].getRating() << " Watched: " << collection.mMovies[i].getWatched() << ' ';
+        }
     }
     return out;
-}
-
-void Movies::display() const {
-    if (mSize == 0) {
-        cout << "No movies to be displayed!";
-    } else {
-    }
 }

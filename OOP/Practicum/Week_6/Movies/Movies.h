@@ -25,7 +25,6 @@ public:
     bool addMovie(const char *name, size_t rating, size_t watched);
     bool incrementByOne(const char *name);
     friend std::ostream &operator<<(std::ostream &out, const Movies &collection);
-    void display() const;
 };
 
 #endif
