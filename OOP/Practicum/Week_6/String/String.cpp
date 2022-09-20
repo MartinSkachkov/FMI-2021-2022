@@ -7,7 +7,7 @@ using namespace std;
 void String::resize(size_t newCapacity) {
     char *copy = mData;
     mData = new char[newCapacity + 1]; // resizing
-    strcpy_s(mData, newCapacity + 1, copy);
+    strcpy_s(mData, strlen(copy) + 1, copy);
     delete[] copy;
 }
 
@@ -69,6 +69,15 @@ String &String::append(const char *other) {
     return *this;
 }
 
+void String::pushBack(char c) {
+    if (mCapacity < strlen(mData) + 1) {
+        resize(strlen(mData) + 1);
+        mCapacity = strlen(mData) + 1;
+    }
+    mData[strlen(mData)] = c;
+    mData[strlen(mData)] = 0;
+}
+
 void String::erase() {
     mCapacity = MAX_CAP;
     free();
@@ -107,12 +116,62 @@ String *String::substr(size_t start, size_t end) const {
 }
 
 // getters
+const char *String::getData() const {
+    return mData;
+}
+
 size_t String::getSize() const {
     return strlen(mData);
 }
 
 size_t String::getCapacity() const {
     return mCapacity;
+}
+
+// operator overloading
+String String::operator+(const String &rhs) const {
+    char *buff = new char[strlen(mData) + strlen(rhs.mData) + 1];
+    strcpy(buff, mData);
+    strcat(buff, rhs.mData);
+    String result(buff);
+    delete[] buff;
+    return result;
+}
+
+String &String::operator+(const String &rhs) {
+    size_t concatLen = strlen(mData) + strlen(rhs.mData);
+    if (mCapacity < concatLen) {
+        resize(concatLen);
+        mCapacity = concatLen;
+    }
+    strcat(mData, rhs.mData);
+    return *this;
+}
+
+String &String::operator+=(const String &rhs) {
+    return append(rhs);
+}
+
+char String::operator[](size_t index) const {
+    if (index > strlen(mData)) {
+        throw "Index out of bounds!\n";
+    }
+    return mData[index];
+}
+
+char &String::operator[](size_t index) {
+    if (index > strlen(mData)) {
+        throw "Index out of bounds!\n";
+    }
+    return mData[index];
+}
+
+bool String::operator!=(const String &rhs) const {
+    return !(*this == rhs); // this will use operator==
+}
+
+bool String::operator==(const String &rhs) const {
+    return strcmp(mData, rhs.mData) == 0 && mCapacity == rhs.mCapacity;
 }
 
 ostream &operator<<(ostream &out, const String &str) {
