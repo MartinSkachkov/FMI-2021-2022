@@ -1,3 +1,4 @@
+#include <cstring>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -8,8 +9,13 @@ bool copy(ifstream &read, ostream &write) {
     while (!read.eof()) {
         char buff[1024];
         read.getline(buff, 1024);
+        /* if (strcmp(buff, "") == 0) {
+             write << buff;
+         } else {*/
+        // read.getline(buff, 1024);
         write << setw(5) << left << numeration << buff << endl;
         numeration++;
+        // }
     }
     return true;
 }
