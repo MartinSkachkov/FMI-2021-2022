@@ -124,7 +124,7 @@ const Nvector operator*(const Nvector &lhs, const int scalar) {
     return lhsCopy;
 }
 
-const Nvector operator*=(const int scalar, const Nvector &rhs) {
+const Nvector operator*(const int scalar, const Nvector &rhs) {
     return rhs * scalar; // operator*(rhs, scalar);
 }
 

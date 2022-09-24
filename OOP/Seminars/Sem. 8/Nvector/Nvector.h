@@ -32,8 +32,8 @@ public:
 // global funcs - we don't have the this ptr
 const Nvector operator+(const Nvector &lhs, const Nvector &rhs);
 const Nvector operator-(const Nvector &lhs, const Nvector &rhs);
-const Nvector operator*=(const Nvector &lhs, const int scalar);
-const Nvector operator*=(const int scalar, const Nvector &rhs);
+const Nvector operator*(const Nvector &lhs, const int scalar);
+const Nvector operator*(const int scalar, const Nvector &rhs);
 
 int operator%(const Nvector &lhs, const Nvector &rhs); // scalar product
 bool operator|=(const Nvector &lhs, const Nvector &rhs);
