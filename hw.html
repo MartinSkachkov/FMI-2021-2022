@@ -1,0 +1,130 @@
+<html>
+	<head>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src="three.min.js"></script>
+		<script>
+			// Задача: Направете дупка в плочката
+
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+
+			var scene = new THREE.Scene();
+			scene.background = new THREE.Color( 'black' );
+			
+			var aspect = window.innerWidth/window.innerHeight;
+			var camera = new THREE.PerspectiveCamera( 30, aspect );
+			camera.position.set( 0, 0, 5 ); //0,0,8
+			camera.lookAt( new THREE.Vector3() );
+
+			// формите за главата
+			var head_geometry = new THREE.BoxGeometry(1/2,1/2,1/2)
+			var head_material = new THREE.MeshPhongMaterial({color: 'NavajoWhite'});
+
+			// слагаме главата
+			var head;
+			head = new THREE.Mesh( head_geometry, head_material );
+			head.position.y = 0.999;
+			scene.add( head );
+			
+			// формите за очите
+			var eye_geometry = new THREE.BoxGeometry(1/10,1/10,1/10);
+			var eye_material = new THREE.MeshPhongMaterial({color: 'White'});
+			
+			// слагаме лявото око
+			var eye;
+			eye = new THREE.Mesh(eye_geometry,eye_material);
+			eye.position.y = 1.05;
+			eye.position.x = -0.1;
+			eye.position.z = 0.23;
+			scene.add(eye);
+			
+			// слагаме дясното око
+			var eye;
+			eye = new THREE.Mesh(eye_geometry,eye_material);
+			eye.position.y = 1.05;
+			eye.position.x = 0.1;
+			eye.position.z = 0.23;
+			scene.add(eye);
+
+			// формите за зениците
+			var small_geometry = new THREE.BoxGeometry(1/15,1/15,1/15);
+			var small_material = new THREE.MeshPhongMaterial({color: 'Brown'});
+			
+			// слагаме лявата зеница
+			var small;
+			small = new THREE.Mesh(small_geometry,small_material);
+			small.position.y = 1.05;
+			small.position.x = -0.1;
+			small.position.z = 0.27;
+			scene.add(small);
+
+			// формите за тялото
+			var body_geometry = new THREE.BoxGeometry(0.7,1.1,1/3);
+			var body_material = new THREE.MeshPhongMaterial({color: 'Coral'});
+			
+			//слагаме тялото
+			var body;
+			body = new THREE.Mesh(body_geometry,body_material);
+			body.position.y = 0.205;
+			scene.add( body );
+
+			// формите за лявата ръка
+			var leftHand_geometry = new THREE.BoxGeometry( 0.3, 1.1, 1/3 );
+			var leftHand_material = new THREE.MeshPhongMaterial({color:'NavajoWhite'});
+			
+			// лява ръка
+			var leftHand;
+			leftHand = new THREE.Mesh(leftHand_geometry, leftHand_material);
+			leftHand.position.x = -0.5;
+			leftHand.position.y = 0.205;
+			scene.add( leftHand );
+			
+			// формите за дясната ръка
+			var leftHand_geometry = new THREE.BoxGeometry( 0.3, 1.1, 1/3 );
+			var leftHand_material = new THREE.MeshPhongMaterial({color:'NavajoWhite'});
+			
+			// дясна ръка
+			var leftHand;
+			leftHand = new THREE.Mesh(leftHand_geometry, leftHand_material);
+			leftHand.position.x = 0.5;
+			leftHand.position.y = 0.205;
+			scene.add( leftHand );
+
+			// формите за ляв крак
+			var leftLeg_geometry = new THREE.BoxGeometry(0.35, 1.1, 1/3);
+			var leftLeg_material = new THREE.MeshPhongMaterial({color:'CornflowerBlue'})
+			
+			// ляв крак
+			var leftLeg;
+			leftLeg = new THREE.Mesh( leftLeg_geometry, leftLeg_material );
+			leftLeg.position.y = -0.9;
+			leftLeg.position.x = -0.18;
+			scene.add( leftLeg );
+			
+			// формите за десен крак
+			var rightLeg_geometry = new THREE.BoxGeometry(0.35, 1.1, 1/3);
+			var rightLeg_material = new THREE.MeshPhongMaterial({color:'CornflowerBlue'})
+			
+			// десен крак
+			var leftLeg;
+			leftLeg = new THREE.Mesh( rightLeg_geometry, rightLeg_material );
+			leftLeg.position.y = -0.9;
+			leftLeg.position.x = 0.18;
+			scene.add( leftLeg );
+
+
+			// светлина
+			var light = new THREE.PointLight( );
+			light.position.set( 3, 2, 3 );
+			scene.add( light );
+
+			renderer.render(scene, camera);
+		</script>
+	</body>
+</html>
